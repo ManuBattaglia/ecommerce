@@ -4,7 +4,7 @@
   "description": "",
   "main": "nodemon app.js",
   "scripts": {
-    "start" : "nodemon app.js",
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -16,6 +16,7 @@
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "jwt-simple": "^0.5.6",
+    "moment": "^2.29.3",
     "mongoose": "^6.2.3"
   },
   "devDependencies": {

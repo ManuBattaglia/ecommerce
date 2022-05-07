@@ -9,5 +9,8 @@ var api = express.Router();
 //POST porque va a ser un registro
 //INICIO CONTROLADOR
 api.post('/registro_admin', adminController.registro_admin);
+api.post('/login_admin', adminController.login_admin);
+
+
 
 module.exports = api;
