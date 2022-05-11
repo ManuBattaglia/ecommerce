@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     AppComponent,
     InicioComponent,
     SidebarComponent,
+    LoginComponent,
   ],
   imports: [
     FormsModule,
