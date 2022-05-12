@@ -11,13 +11,18 @@ export class AdminService {
   public url;
 
   constructor(
-    private _http: HttpClient,
+    private _http : HttpClient,
   ) {
-
     this.url = GLOBAL.url;
-   }
-   login_admin(data:any):Observable<any>{
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.post(this.url+'login_admin', data, {headers: headers});
+  }
+
+  login_admin(data:any):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    return this._http.post(this.url + 'login_admin',data,{headers:headers});
+  }
+
+  // PARA OBTENER TOKEN DEL LOCALSTORAGE
+  getToken(){
+    return localStorage.getItem('token');
   }
 }
