@@ -62,7 +62,61 @@ const login_cliente = async function(req,res){
     } 
 }
 
+// por req recibo objeto decodificado
+const listar_clientes_filtro_admin = async function(req,res){
+    console.log(req.user);
+    if(req.user){
+        // VERIFICAR QUE SOLO ADMIN PUEDAN ACCEDER
+        if(req.user.rol == 'admin'){
+            let tipo = req.params['tipo'];
+            let filtro = req.params['filtro'];
+
+            console.log(tipo)
+
+            if(tipo == null || tipo == 'null'){
+                let registros = await Cliente.find();
+                res.status(200).send({data:registros});
+            }else{
+                // PUEDE SER APELLIDO EN MIN
+                if(tipo == 'apellido'){
+                    let registros = await Cliente.find({apellido: new RegExp(filtro, 'i')});
+                    res.status(200).send({data:registros});
+                }else if(tipo == 'correo'){
+                    let registros = await Cliente.find({mail: new RegExp(filtro, 'i')});
+                    res.status(200).send({data:registros});
+                }       
+            }
+        }else{
+            res.status(500).send({message: 'NoAccess'});
+        }
+    }else{
+        res.status(500).send({message: 'NoAccess'});
+    }
+}
+
+const registro_cliente_admin = async function(req,res){
+    if(req.user){
+        if(req.user.rol == 'admin'){
+            var data = req.body;
+
+            // LE PASO UNA CONTRASEÑA POR DEFECTO AL USUARIO
+            bcrypt.hash('123456789', null,null, async function(err, hash){
+                if(hash){
+                    data.password = hash;
+                    let reg = await Cliente.create(data);
+                    res.status(200).send({data:reg});
+                }else{
+                    res.status(200).send({message:'Hubo un error en el servidor',data:undefined});
+                }
+            })
+        }
+    }
+}
+
+
 module.exports = {
     registro_cliente,
-    login_cliente
+    login_cliente,
+    listar_clientes_filtro_admin,
+    registro_cliente_admin
 }
