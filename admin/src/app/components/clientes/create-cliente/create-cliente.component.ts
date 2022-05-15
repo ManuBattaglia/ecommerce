@@ -33,7 +33,7 @@ export class CreateClienteComponent implements OnInit {
       console.log(this.cliente);
       this._clienteService.registro_cliente_admin(this.cliente, this.token).subscribe(
         response =>{
-          console.log(response);
+          // console.log(response);
           iziToast.show({
             title: 'SUCCESS',
             titleColor: '#1DC740',
