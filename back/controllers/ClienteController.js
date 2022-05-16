@@ -109,14 +109,85 @@ const registro_cliente_admin = async function(req,res){
                     res.status(200).send({message:'Hubo un error en el servidor',data:undefined});
                 }
             })
+        }else{
+            res.status(500).send({message: 'NoAccess'});
         }
+    }else{
+        res.status(500).send({message: 'NoAccess'});
     }
 }
 
+const obtener_cliente_admin = async function(req, res){
+    if(req.user){
+        if(req.user.rol == 'admin'){
+            
+            var id = req.params['id'];
+            
+            try {
+                var registro = await Cliente.findById({_id:id});
+                res.status(200).send({data:registro});
+            } catch (error) {
+                res.status(200).send({data:undefined});
+            }
+            // VALIDAR REGISTRO
+
+
+        }else{
+            res.status(500).send({message: 'NoAccess'});
+        }
+    }else{
+        res.status(500).send({message: 'NoAccess'});
+    }
+}
+
+const actualizar_cliente_admin = async function(req, res){
+    if(req.user){
+        if(req.user.rol == 'admin'){
+            
+            var id = req.params['id'];
+            var data = req.body;
+
+            var registro = await Cliente.findByIdAndUpdate({_id:id}, {
+                nombre: data.nombre,
+                apellido: data.apellido,
+                mail: data.mail,
+                telefono: data.telefono,
+                f_nac: data.f_nacimiento,
+                dni: data.dni,
+                genero: data.genero
+            })
+            res.status(200).send({data:registro});
+        }else{
+            res.status(500).send({message: 'NoAccess'});
+        }
+    }else{
+        res.status(500).send({message: 'NoAccess'});
+    }
+}
+
+const eliminar_cliente_admin = async function(req, res){
+    if(req.user){
+        if(req.user.rol == 'admin'){
+            
+           var id = req.params['id'];
+
+           let registro = await Cliente.findByIdAndRemove({_id:id});
+           res.status(200).send({data:registro});
+            
+        }else{
+            res.status(500).send({message: 'NoAccess'});
+        }
+    }else{
+        res.status(500).send({message: 'NoAccess'});
+    }
+}
 
 module.exports = {
     registro_cliente,
     login_cliente,
     listar_clientes_filtro_admin,
-    registro_cliente_admin
+    registro_cliente_admin,
+    obtener_cliente_admin,
+    actualizar_cliente_admin,
+    eliminar_cliente_admin
 }

@@ -16,6 +16,7 @@ import { EditClienteComponent } from './components/clientes/edit-cliente/edit-cl
 import { CreateProductoComponent } from './components/productos/create-producto/create-producto.component';
 
 
+
 @NgModule({
   declarations: [
    
@@ -27,6 +28,7 @@ import { CreateProductoComponent } from './components/productos/create-producto/
     CreateClienteComponent,
     EditClienteComponent,
     CreateProductoComponent,
+
   ],
   imports: [
     FormsModule,

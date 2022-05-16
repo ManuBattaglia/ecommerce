@@ -8,7 +8,7 @@ var app = express();
 
 var cliente_routes = require('./routes/cliente');
 var admin_routes = require('./routes/admin');
-
+var producto_routes = require('./routes/producto');
 mongoose.connect('mongodb://127.0.0.1:27017/tienda', (err, res) =>{
     if(err){
         console.log(err);
@@ -36,6 +36,6 @@ app.use((req,res,next)=>{
 
 app.use('/api',cliente_routes);
 app.use('/api',admin_routes);
-// app.use('/api',cupon_routes);
+app.use('/api', producto_routes)
 
 module.exports = app;
