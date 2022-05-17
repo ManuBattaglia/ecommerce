@@ -12,9 +12,9 @@ var ProductoSchema = Schema({
     descripcion: {type: String, required: true},
     stock: {type: Number, required: true},
     nventas: {type: Number, default:0, required: true},
-    categoria: {type: Number, required: true},
+    categoria: {type: String, required: true},
     estado: {type: String, default:'Edicion',required: true},
-    createdAt: {type:Date, default:Date.now, require:true}
+    createdAt: {type:Date, default:Date.now, require:true},
 });
 
 module.exports =  mongoose.model('producto',ProductoSchema);
