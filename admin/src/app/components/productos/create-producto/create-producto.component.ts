@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
 import { ProductoService } from 'src/app/services/producto.service';
 
-
 declare var $:any;
 
 declare var iziToast: any;
@@ -23,7 +22,7 @@ export class CreateProductoComponent implements OnInit {
     private _productoService: ProductoService,
     private _adminService: AdminService
   ) {
-      this._adminService.getToken();
+      this.token = this._adminService.getToken()
    }
 
   ngOnInit(): void {
@@ -34,7 +33,7 @@ export class CreateProductoComponent implements OnInit {
       console.log(this.producto);
       console.log(this.file);
       
-      this._productoService.registro_producto_admin(this.producto,this.file,this.token).subscribe(
+      this._productoService.registrar_producto_admin(this.producto, this.file, this.token).subscribe(
         response=>{
           console.log(response);
         },
@@ -42,6 +41,8 @@ export class CreateProductoComponent implements OnInit {
             console.log(error);
         }
       );
+
+
     }else{
       iziToast.show({
         title: 'ERROR',

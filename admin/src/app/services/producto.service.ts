@@ -17,7 +17,7 @@ export class ProductoService {
     this.url = GLOBAL.url;
   }
 
-  registro_producto_admin(data:any,file:any,token:any):Observable<any>{
+  registrar_producto_admin(data:any,file:any,token:any):Observable<any>{
     let headers = new HttpHeaders({'Authorization':token});
 
     const fd = new FormData();
@@ -28,6 +28,11 @@ export class ProductoService {
     fd.append('descripcion', data.descripcion);
     fd.append('portada', file);
 
-    return this._http.post(this.url+'registro_producto_admin',fd,{headers:headers});
+    return this._http.post(this.url+ 'registrar_producto_admin',fd,{headers:headers});
+  }
+
+  listar_productos_admin(filtro:any, token:any):Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization':token});
+    return this._http.get(this.url + 'listar_productos_admin/'+filtro,{headers:headers});
   }
 }
