@@ -16,9 +16,10 @@
         <div class="row">
             <div class="col-6">
                 <div clas="input-group">
-                    <input class="form-control" type="text" placeholder="Titulo del producto">
+                    <input class="form-control" type="text" placeholder="Titulo del producto" name="filtro" [(ngModel)]="filtro">
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">Filtrar</button>
+                        <button class="btn btn-primary mr-1" type="button" (click)="filtrar()">Filtrar</button>
+                        <button class="btn btn-info" type="button" (click)="resetear()">Resetear</button>
                     </div> 
                 </div>
             </div>
@@ -29,7 +30,7 @@
                 <table class="table table-bordered">
                   <thead  class= "thead-dark">
                     <tr>
-                      <th>#</th>
+                
                       <th>Titulo</th>
                       <th>Stock</th>
                       <th>Precio</th>
@@ -39,14 +40,39 @@
                     </tr>
                   </thead>               
              
+                  <ng-container *ngIf="!load_data">
+                    <tbody *ngFor="let item of productos | slice:(page-1)*pageSize : (page-1)*pageSize + pageSize;">
+                      <tr>
+                        <td>
+                          <h6 style="padding-bottom:0; margin-bottom:0;">
+                            <img style="width:50px" [src]="url+'obtener_portada/' +item.portada" class="img-thumbnail rounded-0" alt="Square image">
+                            {{item.titulo}}
+                          </h6>
+                        </td>
+                        <td>{{item.stock}}</td>
+                        <td>{{item.precio}}</td>
+                        <td>{{item.categoria}}</td>
+                        <td>{{item.nventas}}</td>
+                        <td>
+                          <div class="btn-group dropdown d-inline-block mb-3 mr-2">
+                            <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">OPCIONES</button> 
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item">Editar Cliente</a>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </ng-container>
+
                 </table>
             </div>
         </div>
         <div class="card-footer">
-          <!--<ngb-pagination
+          <ngb-pagination
             [(page)]="page"
             [pageSize]="pageSize"
-            [collectionSize]="clientes.length">
-        </ngb-pagination>-->
+            [collectionSize]="productos.length">
+        </ngb-pagination>
       </div>
   </div>    

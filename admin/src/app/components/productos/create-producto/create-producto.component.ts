@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AdminService } from 'src/app/services/admin.service';
 import { ProductoService } from 'src/app/services/producto.service';
 
@@ -20,7 +21,8 @@ export class CreateProductoComponent implements OnInit {
 
   constructor(
     private _productoService: ProductoService,
-    private _adminService: AdminService
+    private _adminService: AdminService,
+    private _router: Router
   ) {
       this.token = this._adminService.getToken()
    }
@@ -36,13 +38,21 @@ export class CreateProductoComponent implements OnInit {
       this._productoService.registrar_producto_admin(this.producto, this.file, this.token).subscribe(
         response=>{
           console.log(response);
+          iziToast.show({
+            title: 'SUCCESS',
+            titleColor: '#1DC740',
+            class:'text-success',
+            position: 'topRight',
+            message: 'Se registro correctamente el nuevo producto.'
+        });
+        
+         this._router.navigate(['/panel/productos']);
+
         },
           error=>{
             console.log(error);
         }
       );
-
-
     }else{
       iziToast.show({
         title: 'ERROR',
