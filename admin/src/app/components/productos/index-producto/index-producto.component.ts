@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GLOBAL } from 'src/app/services/GLOBAL';
 import { ProductoService } from 'src/app/services/producto.service';
 
+declare var $:any;
 declare var iziToast: any;
 
 @Component({
@@ -18,6 +19,7 @@ export class IndexProductoComponent implements OnInit {
   public url:any;
   public page = 1; 
   public pageSize = 10;
+
 
   constructor(
     private _productoService: ProductoService
@@ -64,6 +66,37 @@ export class IndexProductoComponent implements OnInit {
         message: 'Ingrese un filtro para buscar'
     });
     }
+  }
+
+  eliminar(id:any){
+    this._productoService.eliminar_producto_admin(id, this.token).subscribe(
+      response=>{
+        //  console.log(response);
+        iziToast.show({
+          title: 'SUCCESS',
+          titleColor: '#1DC740',
+          class:'text-success',
+          position: 'topRight',
+          message: 'Se elimino correctamente el producto.'
+      });
+        
+        $('#delete-'+id).modal('hide');
+        $('.modal-backdrop').removeClass('show');
+
+        this.init_data();
+        
+      },
+      error=>{
+        console.log(error);
+        iziToast.show({
+          title: 'SUCCESS',
+          titleColor: '#1DC740',
+          class:'text-success',
+          position: 'topRight',
+          message: 'Ocurrio un error en el servidor.'
+      });
+      }
+    )
   }
 
   resetear(){
